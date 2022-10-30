@@ -11,7 +11,6 @@ import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Optional;
 import java.util.Set;
 
 @Component
@@ -44,64 +43,53 @@ public class RecipesLoader implements CommandLineRunner {
         avocado.setUnitOfMeasure(piece);
         avocado.setDescription("Avocado");
         avocado.setAmount(BigDecimal.valueOf(2));
-        avocado.setRecipe(guacamole);
 
         Ingredient kosherSalt = new Ingredient();
         kosherSalt.setUnitOfMeasure(teaspoon);
         kosherSalt.setDescription("Kosher salt");
         kosherSalt.setAmount(BigDecimal.valueOf(0.25));
-        kosherSalt.setRecipe(guacamole);
 
         Ingredient lemonJuice = new Ingredient();
         lemonJuice.setUnitOfMeasure(tablespoon);
         lemonJuice.setDescription("Lemon juice");
         lemonJuice.setAmount(BigDecimal.valueOf(1));
-        lemonJuice.setRecipe(guacamole);
 
         Ingredient mincedRedOnion = new Ingredient();
         mincedRedOnion.setUnitOfMeasure(tablespoon);
         mincedRedOnion.setDescription("Minced red onion");
         mincedRedOnion.setAmount(BigDecimal.valueOf(3));
-        mincedRedOnion.setRecipe(guacamole);
 
         Ingredient serranoChilis = new Ingredient();
         serranoChilis.setUnitOfMeasure(piece);
         serranoChilis.setDescription("Serrano chili");
         serranoChilis.setAmount(BigDecimal.valueOf(1));
-        serranoChilis.setRecipe(guacamole);
 
         Ingredient cilantro = new Ingredient();
         cilantro.setUnitOfMeasure(tablespoon);
         cilantro.setDescription("Cilantro");
         cilantro.setAmount(BigDecimal.valueOf(2));
-        cilantro.setRecipe(guacamole);
 
         Ingredient freshlyGroundBlackPepper = new Ingredient();
         freshlyGroundBlackPepper.setUnitOfMeasure(pinch);
         freshlyGroundBlackPepper.setDescription("Freshly ground black pepper");
         freshlyGroundBlackPepper.setAmount(BigDecimal.valueOf(1));
-        freshlyGroundBlackPepper.setRecipe(guacamole);
 
         Ingredient ripeTomato = new Ingredient();
         ripeTomato.setUnitOfMeasure(piece);
         ripeTomato.setDescription("Ripe tomato");
         ripeTomato.setAmount(BigDecimal.valueOf(0.5));
-        ripeTomato.setRecipe(guacamole);
 
         Ingredient redRadish = new Ingredient();
         redRadish.setUnitOfMeasure(slice);
         redRadish.setDescription("Red radish");
         redRadish.setAmount(BigDecimal.valueOf(10));
-        redRadish.setRecipe(guacamole);
 
         Ingredient tortillaChips = new Ingredient();
         tortillaChips.setUnitOfMeasure(piece);
         tortillaChips.setDescription("Tortilla chips");
         tortillaChips.setAmount(BigDecimal.valueOf(10));
-        tortillaChips.setRecipe(guacamole);
 
         Note guacamoleNotes = new Note();
-        guacamoleNotes.setRecipe(guacamole);
         guacamoleNotes.setRecipeNotes(" Ingredients for Easy Guacamole\n" +
                 "\n" +
                 "All you really need to make guacamole is ripe avocados and salt. After that, a little lime or lemon juice—a splash of acidity—will help balance the richness of the avocado. If you want, add chopped cilantro, chilis, onion, and/or tomato. " +

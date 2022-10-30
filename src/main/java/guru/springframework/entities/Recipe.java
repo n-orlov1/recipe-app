@@ -49,6 +49,13 @@ public class Recipe {
 
     public void setIngredients(Set<Ingredient> ingredients) {
         this.ingredients = ingredients;
+        for(Ingredient ingredient : this.ingredients) {
+            setRecipeForIngredient(ingredient);
+        }
+    }
+
+    private void setRecipeForIngredient(Ingredient ingredient) {
+        ingredient.setRecipe(this);
     }
 
     public void setDescription(String description) {
@@ -117,6 +124,7 @@ public class Recipe {
 
     public void setNote(Note note) {
         this.note = note;
+        note.setRecipe(this);
     }
 
     public Difficulty getDifficulty() {
