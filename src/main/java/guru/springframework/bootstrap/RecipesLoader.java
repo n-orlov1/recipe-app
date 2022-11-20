@@ -4,8 +4,13 @@ import guru.springframework.entities.*;
 import guru.springframework.repositories.CategoryRepository;
 import guru.springframework.repositories.RecipeRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.nio.file.Files;
@@ -14,7 +19,8 @@ import java.nio.file.Paths;
 import java.util.Set;
 
 @Component
-public class RecipesLoader implements CommandLineRunner {
+@Slf4j
+public class RecipesLoader implements ApplicationListener<ContextRefreshedEvent> {
     private final UnitOfMeasureRepository unitOfMeasureRepository;
     private final RecipeRepository recipeRepository;
     private final CategoryRepository categoryRepository;
@@ -25,8 +31,15 @@ public class RecipesLoader implements CommandLineRunner {
         this.categoryRepository = categoryRepository;
     }
 
+    @SneakyThrows
     @Override
-    public void run(String... args) throws Exception {
+    public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
+        log.debug("On application event method was called !");
+        recipeRepository.save(getRecipe());
+    }
+
+    public Recipe getRecipe() throws Exception {
+        log.debug("Run method was called!");
         //Guacamole
         Recipe guacamole = new Recipe();
 
@@ -117,9 +130,10 @@ public class RecipesLoader implements CommandLineRunner {
         guacamole.setUrl("https://www.simplyrecipes.com/recipes/perfect_guacamole/");
         guacamole.setImage(image);
         guacamole.setNote(guacamoleNotes);
-        guacamole.setIngredients(Set.of(avocado,kosherSalt,lemonJuice,mincedRedOnion,serranoChilis,cilantro,freshlyGroundBlackPepper,
-                ripeTomato,redRadish,tortillaChips));
-        guacamole.setCategories(Set.of(mexicanCategoty,americanCategory));
-        recipeRepository.save(guacamole);
+        guacamole.setIngredients(Set.of(avocado, kosherSalt, lemonJuice, mincedRedOnion, serranoChilis, cilantro, freshlyGroundBlackPepper,
+                ripeTomato, redRadish, tortillaChips));
+        guacamole.setCategories(Set.of(mexicanCategoty, americanCategory));
+        return guacamole;
+        //recipeRepository.save(guacamole);
     }
 }

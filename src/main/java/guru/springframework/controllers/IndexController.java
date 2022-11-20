@@ -1,24 +1,18 @@
 package guru.springframework.controllers;
 
-import guru.springframework.entities.Category;
-import guru.springframework.entities.Recipe;
-import guru.springframework.entities.UnitOfMeasure;
 import guru.springframework.repositories.CategoryRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
 import guru.springframework.services.RecipeFinder;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Base64;
-import java.util.List;
-import java.util.Optional;
+
 
 @Controller
+@Slf4j
 public class IndexController {
 
     private final RecipeFinder recipeFinder;
@@ -31,6 +25,7 @@ public class IndexController {
     }
     @GetMapping({"","/","/index","/index.html"})
     public String getIndexPage(Model model) throws IOException {
+        log.debug("Get index page method was called!");
         /*Optional<Category> category = categoryRepository.findByDescription("Russian");
         Optional<UnitOfMeasure> unitOfMeasure = unitOfMeasureRepository.findByDescription("Teaspoon");
         System.out.println("category id is " + category.get().getId());
