@@ -9,6 +9,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -33,5 +34,16 @@ public class RecipeFinderImplTest {
         List<Recipe> recipeList = recipeFinder.findRecipes();
         assertEquals(1, recipeList.size());
         verify(recipeRepository,times(1)).findAll();
+    }
+
+    @Test
+    public void findRecipeById() {
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+
+        when(recipeRepository.findById(any())).thenReturn(Optional.of(recipe));
+
+        assertNotNull(recipeFinder.findRecipeById(1L));
+        verify(recipeRepository, times(1)).findById(any());
     }
 }
