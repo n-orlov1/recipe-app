@@ -1,5 +1,7 @@
 package guru.springframework.services;
 
+import guru.springframework.converters.RecipeCommandToRecipe;
+import guru.springframework.converters.RecipeToRecipeCommand;
 import guru.springframework.entities.Recipe;
 import guru.springframework.repositories.RecipeRepository;
 import org.junit.Before;
@@ -19,11 +21,15 @@ public class RecipeFinderImplTest {
     RecipeFinderImpl recipeFinder;
     @Mock
     RecipeRepository recipeRepository;
+    @Mock
+    RecipeToRecipeCommand recipeToRecipeCommand;
+    @Mock
+    RecipeCommandToRecipe recipeCommandToRecipe;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        recipeFinder = new RecipeFinderImpl(recipeRepository);
+        recipeFinder = new RecipeFinderImpl(recipeRepository,recipeCommandToRecipe,recipeToRecipeCommand);
     }
 
     @Test
