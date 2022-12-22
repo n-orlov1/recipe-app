@@ -5,8 +5,10 @@ import guru.springframework.converters.RecipeCommandToRecipe;
 import guru.springframework.converters.RecipeToRecipeCommand;
 import guru.springframework.entities.Recipe;
 import guru.springframework.repositories.RecipeRepository;
+import jdk.swing.interop.SwingInterOpUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +39,7 @@ public class RecipeFinderImpl implements RecipeFinder {
     }
 
     @Override
+    @Transactional
     public Recipe findRecipeById(Long id) {
        log.debug("Find recipe by id method was called!");
        Optional<Recipe> recipe = recipeRepository.findById(id);
@@ -55,5 +58,28 @@ public class RecipeFinderImpl implements RecipeFinder {
         Recipe savedRecipe = recipeRepository.save(detachedRecipe);
         log.debug("Saved RecipeId:" + savedRecipe.getId());
         return recipeToRecipeCommand.convert(savedRecipe);
+    }
+
+    @Override
+    @Transactional
+    public RecipeCommand findCommandById(Long id) {
+        Recipe recipe = findRecipeById(id);
+       // System.out.println("size " + recipe.getIngredients().size());
+
+//        recipe.getIngredients().stream()
+//                .forEach(i -> {
+//                    System.out.println("ingredient description " + i.getDescription());
+//                });
+
+        RecipeCommand convertedRecipe = recipeToRecipeCommand.convert(recipe);
+
+        convertedRecipe.getIngredients().forEach(System.out::println);
+
+        return convertedRecipe;
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        recipeRepository.deleteById(id);
     }
 }

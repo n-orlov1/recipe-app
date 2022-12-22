@@ -2,6 +2,7 @@ package guru.springframework.converters;
 
 import guru.springframework.commands.IngredientCommand;
 import guru.springframework.entities.Ingredient;
+import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
@@ -9,10 +10,27 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class IngredientToIngredientCommand implements Converter<Ingredient, IngredientCommand> {
-    @Override
+
+
+    private final UnitOfMeasureToUnitOfMeasureCommand uomConverter;
+
+    public IngredientToIngredientCommand(UnitOfMeasureToUnitOfMeasureCommand uomConverter) {
+        this.uomConverter = uomConverter;
+    }
+
+    @Synchronized
     @Nullable
-    @Transactional
+    @Override
     public IngredientCommand convert(Ingredient ingredient) {
-        return null;
+        if (ingredient == null) {
+            return null;
+        }
+
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setId(ingredient.getId());
+        ingredientCommand.setAmount(ingredient.getAmount());
+        ingredientCommand.setDescription(ingredient.getDescription());
+        ingredientCommand.setUnitOfMeasure(uomConverter.convert(ingredient.getUnitOfMeasure()));
+        return ingredientCommand;
     }
 }
