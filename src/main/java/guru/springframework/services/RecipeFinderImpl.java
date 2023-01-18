@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Service
 @Slf4j
+@Service
 public class RecipeFinderImpl implements RecipeFinder {
     private RecipeRepository recipeRepository;
     private RecipeCommandToRecipe recipeCommandToRecipe;
