@@ -9,5 +9,4 @@ public interface UnitOfMeasureFinder {
 
     Set<UnitOfMeasureCommand> findAllUoms();
 
-    IngredientCommand saveIngredientCommand(IngredientCommand ingredientCommand);
 }

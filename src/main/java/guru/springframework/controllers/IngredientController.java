@@ -1,6 +1,8 @@
 package guru.springframework.controllers;
 
 import guru.springframework.commands.IngredientCommand;
+import guru.springframework.commands.RecipeCommand;
+import guru.springframework.commands.UnitOfMeasureCommand;
 import guru.springframework.services.IngredientFinder;
 import guru.springframework.services.RecipeFinder;
 import guru.springframework.services.UnitOfMeasureFinder;
@@ -54,12 +56,32 @@ public class IngredientController {
 
     @PostMapping ("/recipe/{recipeId}/ingredient")
     public String saveOrUpdateIngredient(@ModelAttribute IngredientCommand ingredientCommand) {
-        IngredientCommand savedIngredientCommand = unitOfMeasureFinder.saveIngredientCommand(ingredientCommand);
+        IngredientCommand savedIngredientCommand = ingredientFinder.saveIngredientCommand(ingredientCommand);
 
         log.debug("saved recipe id " + savedIngredientCommand.getRecipeId());
         log.debug("saved ingredient id " + savedIngredientCommand.getId());
 
         return "redirect:/recipe/" + savedIngredientCommand.getRecipeId() + "/ingredient/"
                 + savedIngredientCommand.getId() + "/show";
+    }
+    @GetMapping("/recipe/{recipeId}/ingredient/new")
+    public String newRecipeIngredient(@PathVariable String recipeId, Model model) {
+        RecipeCommand recipeCommand = recipeFinder.findCommandById(Long.valueOf(recipeId));
+
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setRecipeId(Long.valueOf(recipeId));
+
+        model.addAttribute("ingredient", ingredientCommand);
+
+        ingredientCommand.setUnitOfMeasure(new UnitOfMeasureCommand());
+
+        model.addAttribute("uomList", unitOfMeasureFinder.findAllUoms());
+
+        return "/recipe/ingredient/ingredientform";
+    }
+    @GetMapping("/recipe/{recipeId}/ingredient/{ingredientId}/delete")
+    public String deleteIngredient(@PathVariable String recipeId, @PathVariable String ingredientId) {
+        ingredientFinder.deleteIngredient(Long.valueOf(recipeId),Long.valueOf(ingredientId));
+        return "redirect:/recipe/ingredients/" + recipeId;
     }
 }
