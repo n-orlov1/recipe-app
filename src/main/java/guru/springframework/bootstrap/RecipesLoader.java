@@ -110,12 +110,12 @@ public class RecipesLoader implements ApplicationListener<ContextRefreshedEvent>
                 "\n" +
                 "The trick to making perfect guacamole is using avocados that are just the right amount of ripeness. Not ripe enough and the avocado will be hard and flavorless. Too ripe and the taste will be off. ");
 
-        Path file = Paths.get("/home/nik/myprojects/recipe-app/src/main/resources/guacomole.png");
+        /*Path file = Paths.get("/home/nik/myprojects/recipe-app/src/main/resources/guacomole.png");
         byte[] imageAsByteArray = Files.readAllBytes(file);
         Byte[] image = new Byte[imageAsByteArray.length];
         for (int i = 0; i < imageAsByteArray.length; i++) {
             image[i] = imageAsByteArray[i];
-        }
+        }*/
 
         guacamole.setDescription("The best guacamole keeps it simple: just ripe avocados and a handful of flavorful mix-ins. Serve it as a dip at your next party or spoon it on top of tacos for an easy dinner upgrade.");
         guacamole.setDifficulty(Difficulty.EASY);
@@ -128,7 +128,7 @@ public class RecipesLoader implements ApplicationListener<ContextRefreshedEvent>
         guacamole.setServings(10);
         guacamole.setSource("Simply recipes");
         guacamole.setUrl("https://www.simplyrecipes.com/recipes/perfect_guacamole/");
-        guacamole.setImage(image);
+        //guacamole.setImage(image);
         guacamole.setNote(guacamoleNotes);
         guacamole.setIngredients(Set.of(avocado, kosherSalt, lemonJuice, mincedRedOnion, serranoChilis, cilantro, freshlyGroundBlackPepper,
                 ripeTomato, redRadish, tortillaChips));
